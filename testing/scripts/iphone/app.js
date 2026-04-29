@@ -6,7 +6,7 @@ const tests = [
   { name: "Camera (Front)", run: "camera-front" },
   { name: "Flashlight", run: "flash" },
   { name: "Motion Sensors", run: "sensors" },
-  { name: "Microphone", run: "mic" },
+  { name: "Audio Test (Mic + Speaker)", run: "mic" },
   { name: "Network", run: "network" },
   { name: "Device Info", run: "device" }
 ];

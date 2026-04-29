@@ -13,12 +13,17 @@ window.startMic = async function () {
     audioElement.srcObject = micStream;
 
     const liveArea = document.getElementById("liveArea");
-    liveArea.innerHTML = "<p>🎤 Microphone active</p>";
+
+    liveArea.innerHTML = `
+      <h3>🔊 Audio Test (Mic + Speaker)</h3>
+      <p>Speak into the microphone. You should hear playback through the speaker.</p>
+    `;
+
     liveArea.appendChild(audioElement);
 
   } catch (err) {
-    console.error("Mic error:", err);
-    alert("Microphone access denied or not available.");
+    console.error("Microphone error:", err);
+    alert("Microphone access denied or unavailable.");
   }
 };
 
@@ -30,10 +35,16 @@ window.stopMic = function () {
 
   if (audioElement) {
     audioElement.srcObject = null;
+    audioElement.remove();
+    audioElement = null;
   }
 
   const liveArea = document.getElementById("liveArea");
+
   if (liveArea) {
-    liveArea.innerHTML = "<p>🎤 Microphone stopped</p>";
+    liveArea.innerHTML = `
+      <h3>🔊 Audio Test (Mic + Speaker)</h3>
+      <p>Audio test stopped.</p>
+    `;
   }
 };

@@ -5,10 +5,10 @@ window.runNetworkTest = function () {
     <h3>🌐 Network Check</h3>
 
     <div style="margin-top:10px;">
-      <p>✔ Check Network 1</p>
-      <p>✔ Check Network 2</p>
+      <p>✔ Check Network & Call Test #1</p>
+      <p>✔ Check Network & Call Test #1</p>
     </div>
 
-    <p>Confirm if all network features are working.</p>
+    <p>Confirm if all network and speaker features are working.</p>
   `;
 };
