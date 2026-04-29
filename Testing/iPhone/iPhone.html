@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iPhone Diagnostics</title>
+
+  <style>
+    body { font-family: Arial; margin: 0; padding: 20px; background:#f5f5f5; }
+    .card { background:#fff; padding:15px; margin-bottom:15px; border-radius:10px; }
+    .hidden { display:none; }
+    button { padding:10px; margin:5px; }
+    video { width:100%; border-radius:10px; margin-top:10px; }
+  </style>
+</head>
+<body>
+
+<h1>📱 iPhone Diagnostic Suite</h1>
+
+<!-- HOME -->
+<div id="home" class="card">
+  <h2>Tests</h2>
+  <button onclick="showPage('camera')">Camera</button>
+  <button onclick="showPage('flash')">Flashlight</button>
+  <button onclick="showPage('sensors')">Sensors</button>
+  <button onclick="showPage('mic')">Microphone</button>
+  <button onclick="showPage('network')">Network</button>
+  <button onclick="showPage('device')">Device Info</button>
+</div>
+
+<!-- CAMERA -->
+<div id="camera" class="card hidden">
+  <h2>Camera Test</h2>
+  <video id="preview" autoplay playsinline></video>
+  <video id="playback" controls></video>
+  <button onclick="startCamera()">Start</button>
+  <button onclick="startRecording()">Record</button>
+  <button onclick="stopRecording()">Stop</button>
+  <button onclick="showPage('home')">Back</button>
+</div>
+
+<!-- FLASH -->
+<div id="flash" class="card hidden">
+  <h2>Flashlight Test</h2>
+  <button onclick="initFlash()">Init</button>
+  <button onclick="toggleFlash()">Toggle</button>
+  <button onclick="showPage('home')">Back</button>
+</div>
+
+<!-- SENSOR -->
+<div id="sensors" class="card hidden">
+  <h2>Sensors</h2>
+  <div id="sensorData"></div>
+  <button onclick="showPage('home')">Back</button>
+</div>
+
+<!-- MIC -->
+<div id="mic" class="card hidden">
+  <h2>Microphone</h2>
+  <audio id="audio" controls></audio>
+  <button onclick="startMic()">Start Mic</button>
+  <button onclick="showPage('home')">Back</button>
+</div>
+
+<!-- NETWORK -->
+<div id="network" class="card hidden">
+  <h2>Network Test</h2>
+  <div id="net"></div>
+  <button onclick="runTest()">Run</button>
+  <button onclick="showPage('home')">Back</button>
+</div>
+
+<!-- DEVICE -->
+<div id="device" class="card hidden">
+  <h2>Device Info</h2>
+  <pre id="info"></pre>
+  <button onclick="loadInfo()">Load</button>
+  <button onclick="showPage('home')">Back</button>
+</div>
+
+<!-- SCRIPTS -->
+<script src="../scripts/iphone/app.js"></script>
+<script src="../scripts/iphone/camera.js"></script>
+<script src="../scripts/iphone/flashlight.js"></script>
+<script src="../scripts/iphone/sensors.js"></script>
+<script src="../scripts/iphone/microphone.js"></script>
+<script src="../scripts/iphone/network.js"></script>
+<script src="../scripts/iphone/device.js"></script>
+
+</body>
+</html>
