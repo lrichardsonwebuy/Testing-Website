@@ -1,50 +1,47 @@
-let micStream = null;
-let audioElement = null;
+let stream, audioCtx, analyser, dataArray, canvas, ctx, anim;
 
 window.startMic = async function () {
-  try {
-    micStream = await navigator.mediaDevices.getUserMedia({
-      audio: true
-    });
+  stream = await navigator.mediaDevices.getUserMedia({ audio:true });
 
-    audioElement = document.createElement("audio");
-    audioElement.autoplay = true;
-    audioElement.controls = true;
-    audioElement.srcObject = micStream;
+  audioCtx = new AudioContext();
+  const source = audioCtx.createMediaStreamSource(stream);
 
-    const liveArea = document.getElementById("liveArea");
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 64;
 
-    liveArea.innerHTML = `
-      <h3>🔊 Audio Test (Mic + Speaker)</h3>
-      <p>Speak into the microphone. You should hear playback through the speaker.</p>
-    `;
+  source.connect(analyser);
 
-    liveArea.appendChild(audioElement);
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-  } catch (err) {
-    console.error("Microphone error:", err);
-    alert("Microphone access denied or unavailable.");
+  const live = document.getElementById("liveArea");
+
+  canvas = document.createElement("canvas");
+  canvas.width = 300;
+  canvas.height = 80;
+  ctx = canvas.getContext("2d");
+
+  live.innerHTML = "<h3>🎤 Audio Waveform</h3>";
+  live.appendChild(canvas);
+
+  draw();
+};
+
+function draw() {
+  anim = requestAnimationFrame(draw);
+
+  analyser.getByteFrequencyData(dataArray);
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  let x = 0;
+  for (let i=0;i<dataArray.length;i++) {
+    let v = dataArray[i] / 2;
+    ctx.fillRect(x, 80-v, 4, v);
+    x += 5;
   }
 };
 
 window.stopMic = function () {
-  if (micStream) {
-    micStream.getTracks().forEach(track => track.stop());
-    micStream = null;
-  }
-
-  if (audioElement) {
-    audioElement.srcObject = null;
-    audioElement.remove();
-    audioElement = null;
-  }
-
-  const liveArea = document.getElementById("liveArea");
-
-  if (liveArea) {
-    liveArea.innerHTML = `
-      <h3>🔊 Audio Test (Mic + Speaker)</h3>
-      <p>Audio test stopped.</p>
-    `;
-  }
+  if (stream) stream.getTracks().forEach(t=>t.stop());
+  cancelAnimationFrame(anim);
 };
