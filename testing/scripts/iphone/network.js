@@ -1,10 +1,14 @@
-window.runNetworkTest = async function () {
-  const start = performance.now();
+window.runNetworkTest = function () {
+  const area = document.getElementById("liveArea");
 
-  await fetch("https://www.apple.com", { mode: "no-cors" }).catch(() => {});
+  area.innerHTML = `
+    <h3>🌐 Network Check</h3>
 
-  const end = performance.now();
+    <div style="margin-top:10px;">
+      <p>✔ Check Network 1</p>
+      <p>✔ Check Network 2</p>
+    </div>
 
-  document.getElementById("liveArea").innerHTML =
-    "Latency: " + (end - start).toFixed(2) + "ms";
+    <p>Confirm if all network features are working.</p>
+  `;
 };

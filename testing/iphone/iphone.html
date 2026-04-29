@@ -2,86 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>iPhone Diagnostics</title>
 
   <style>
-    body { font-family: Arial; margin: 0; padding: 20px; background:#f5f5f5; }
-    .card { background:#fff; padding:15px; margin-bottom:15px; border-radius:10px; }
-    .hidden { display:none; }
-    button { padding:10px; margin:5px; }
-    video { width:100%; border-radius:10px; margin-top:10px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .pass {
+      background: #2ecc71;
+      color: white;
+    }
+
+    .fail {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .start {
+      background: #3498db;
+      color: white;
+    }
+
+    #liveArea {
+      margin-top: 10px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
+
 <body>
 
-<h1>📱 iPhone Diagnostic Suite</h1>
+<h1>📱 iPhone Diagnostic Tool</h1>
 
-<!-- HOME -->
-<div id="home" class="card">
-  <h2>Tests</h2>
-  <button onclick="showPage('camera')">Camera</button>
-  <button onclick="showPage('flash')">Flashlight</button>
-  <button onclick="showPage('sensors')">Sensors</button>
-  <button onclick="showPage('mic')">Microphone</button>
-  <button onclick="showPage('network')">Network</button>
-  <button onclick="showPage('device')">Device Info</button>
-</div>
-
-<!-- CAMERA -->
-<div id="camera" class="card hidden">
-  <h2>Camera Test</h2>
-  <video id="preview" autoplay playsinline></video>
-  <div>
-    <button onclick="startCamera()">Start</button>
-    <button onclick="flipCamera()">Flip Camera</button>
-  </div>
-  <div>
-    <button onclick="setLens(1)">1x</button>
-    <button onclick="setLens(2)">2x</button>
-    <button onclick="setLens(3)">3x</button>
-  </div>
-  <button onclick="showPage('home')">Back</button>
-</div>
-
-<!-- FLASH -->
-<div id="flash" class="card hidden">
-  <h2>Flashlight Test</h2>
-  <button onclick="initFlash()">Init</button>
-  <button onclick="toggleFlash()">Toggle</button>
-  <button onclick="showPage('home')">Back</button>
-</div>
-
-<!-- SENSOR -->
-<div id="sensors" class="card hidden">
-  <h2>Sensors</h2>
-  <div id="sensorData"></div>
-  <button onclick="showPage('home')">Back</button>
-</div>
-
-<!-- MIC -->
+<!-- START -->
 <div class="card">
-  <h3>Microphone Test</h3>
-  <button onclick="startMic()">Start Mic</button>
-  <button onclick="stopMic()">Stop Mic</button>
-  <div id="liveArea"></div>
+  <h2>Full Device Test</h2>
+  <button class="start" onclick="startDiagnostics()">Start Test</button>
 </div>
 
-<!-- NETWORK -->
-<div id="network" class="card hidden">
-  <h2>Network Test</h2>
-  <div id="net"></div>
-  <button onclick="runTest()">Run</button>
-  <button onclick="showPage('home')">Back</button>
+<!-- TEST AREA -->
+<div id="diagnostic" class="card hidden">
+  <h2 id="stepTitle"></h2>
+
+  <div id="stepContent">
+    <div id="liveArea"></div>
+  </div>
+
+  <button class="pass" onclick="passTest()">✔ Pass</button>
+  <button class="fail" onclick="failTest()">❌ Fail</button>
 </div>
 
-<!-- DEVICE -->
-<div id="device" class="card hidden">
-  <h2>Device Info</h2>
-  <pre id="info"></pre>
-  <button onclick="loadInfo()">Load</button>
-  <button onclick="showPage('home')">Back</button>
-</div>
+<!-- RESULT -->
+<div id="result" class="card hidden"></div>
 
 <!-- SCRIPTS -->
 <script src="../scripts/iphone/app.js"></script>
@@ -91,7 +100,6 @@
 <script src="../scripts/iphone/microphone.js"></script>
 <script src="../scripts/iphone/network.js"></script>
 <script src="../scripts/iphone/device.js"></script>
-
 
 </body>
 </html>
