@@ -1,12 +1,8 @@
-function loadInfo() {
-  const info = document.getElementById("info");
-
-  info.textContent = `
+window.loadInfo = function () {
+  document.getElementById("liveArea").innerText = `
 User Agent: ${navigator.userAgent}
 Platform: ${navigator.platform}
-Language: ${navigator.language}
-Cores: ${navigator.hardwareConcurrency || "unknown"}
-Memory: ${navigator.deviceMemory || "unknown"} GB
-Touch Support: ${("ontouchstart" in window) ? "Yes" : "No"}
-  `.trim();
-}
+Cores: ${navigator.hardwareConcurrency}
+Memory: ${navigator.deviceMemory || "unknown"}
+`;
+};

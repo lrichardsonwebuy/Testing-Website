@@ -1,19 +1,16 @@
 let track;
 let flashOn = false;
 
-async function initFlash() {
-  const stream = await navigator.mediaDevices.getUserMedia({
+window.initFlash = async function () {
+  const s = await navigator.mediaDevices.getUserMedia({
     video: { facingMode: "environment" }
   });
 
-  track = stream.getVideoTracks()[0];
-}
+  track = s.getVideoTracks()[0];
+};
 
-async function toggleFlash() {
-  if (!track) {
-    alert("Initialize camera first");
-    return;
-  }
+window.toggleFlash = async function () {
+  if (!track) return;
 
   try {
     await track.applyConstraints({
@@ -21,7 +18,7 @@ async function toggleFlash() {
     });
 
     flashOn = !flashOn;
-  } catch (e) {
-    alert("Flashlight not supported on this device/browser.");
+  } catch {
+    alert("Flash not supported");
   }
-}
+};

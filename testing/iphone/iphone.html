@@ -32,10 +32,15 @@
 <div id="camera" class="card hidden">
   <h2>Camera Test</h2>
   <video id="preview" autoplay playsinline></video>
-  <video id="playback" controls></video>
-  <button onclick="startCamera()">Start</button>
-  <button onclick="startRecording()">Record</button>
-  <button onclick="stopRecording()">Stop</button>
+  <div>
+    <button onclick="startCamera()">Start</button>
+    <button onclick="flipCamera()">Flip Camera</button>
+  </div>
+  <div>
+    <button onclick="setLens(1)">1x</button>
+    <button onclick="setLens(2)">2x</button>
+    <button onclick="setLens(3)">3x</button>
+  </div>
   <button onclick="showPage('home')">Back</button>
 </div>
 

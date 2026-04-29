@@ -1,10 +1,10 @@
-let micStream;
+window.startMic = async function () {
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const audio = document.createElement("audio");
+  audio.controls = true;
+  audio.autoplay = true;
+  audio.srcObject = stream;
 
-async function startMic() {
-  micStream = await navigator.mediaDevices.getUserMedia({
-    audio: true
-  });
-
-  const audio = document.getElementById("audio");
-  audio.srcObject = micStream;
-}
+  document.getElementById("liveArea").innerHTML = "";
+  document.getElementById("liveArea").appendChild(audio);
+};

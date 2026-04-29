@@ -1,35 +1,24 @@
 let stream;
-let recorder;
-let chunks = [];
 
-async function startCamera() {
+window.startCamera = async function (facing = "environment") {
+  if (stream) {
+    stream.getTracks().forEach(t => t.stop());
+  }
+
   stream = await navigator.mediaDevices.getUserMedia({
-    video: true,
-    audio: true
+    video: { facingMode: facing },
+    audio: false
   });
 
-  document.getElementById('preview').srcObject = stream;
-}
+  const video = document.createElement("video");
+  video.autoplay = true;
+  video.playsInline = true;
+  video.style.width = "100%";
+  video.style.borderRadius = "10px";
 
-function startRecording() {
-  chunks = [];
+  video.srcObject = stream;
 
-  recorder = new MediaRecorder(stream);
-
-  recorder.ondataavailable = (e) => {
-    if (e.data.size > 0) chunks.push(e.data);
-  };
-
-  recorder.onstop = () => {
-    const blob = new Blob(chunks, { type: 'video/webm' });
-    document.getElementById('playback').src = URL.createObjectURL(blob);
-  };
-
-  recorder.start();
-}
-
-function stopRecording() {
-  if (recorder && recorder.state !== "inactive") {
-    recorder.stop();
-  }
-}
+  const liveArea = document.getElementById("liveArea");
+  liveArea.innerHTML = "";
+  liveArea.appendChild(video);
+};
