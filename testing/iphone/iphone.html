@@ -84,14 +84,19 @@ button {
 
 <!-- TEST AREA -->
 <div id="diagnostic" class="card hidden">
+
+  <!-- PASS / FAIL MOVED TO TOP -->
+  <div style="margin-bottom:10px;">
+    <button class="pass" onclick="passTest()">✔ Pass</button>
+    <button class="fail" onclick="failTest()">❌ Fail</button>
+  </div>
+
   <h2 id="stepTitle"></h2>
 
   <div id="stepContent">
     <div id="liveArea"></div>
   </div>
 
-  <button class="pass" onclick="passTest()">✔ Pass</button>
-  <button class="fail" onclick="failTest()">❌ Fail</button>
 </div>
 
 <!-- RESULT -->
